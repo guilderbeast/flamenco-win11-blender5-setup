@@ -104,6 +104,39 @@ scripts\start-worker.bat
 
 Edit `start-worker.bat` to set your manager's IP address before running.
 
+### 6. Auto-Start on Boot
+
+Without auto-start, the Manager and Workers need to be manually launched every time 
+a machine restarts. These startup scripts fix that permanently.
+
+**On the Manager machine (laptop):**
+
+Create `C:\BlenderFarm\startup-laptop.bat` containing:
+
+```batch
+cd C:\BlenderFarm\flamenco-3.9-windows-amd64
+start flamenco-manager.exe
+timeout /t 10
+cd C:\BlenderFarm
+flamenco-worker.exe -manager http://[YOUR-MANAGER-IP]
+```
+
+**On the Worker machine (desktop):**
+
+Create `C:\BlenderFarm\startup-desktop.bat` containing:
+
+```batch
+cd C:\BlenderFarm
+C:\BlenderFarm\flamenco-3.9-windows-amd64\flamenco-worker.exe -manager http://[YOUR-MANAGER-IP]
+```
+
+**Add to Windows startup on both machines:**
+- Press **Win+R** → type `shell:startup` → Enter
+- Right click the .bat file → Send to → Desktop (create shortcut)
+- Cut the shortcut from Desktop and paste into the startup folder
+
+Both machines will now automatically start their Flamenco roles on every boot.
+Note: Blender does NOT need to be open — workers launch it headlessly when needed.
 ---
 
 ## Configuration
