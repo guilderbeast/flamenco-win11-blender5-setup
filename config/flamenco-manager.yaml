@@ -1,0 +1,64 @@
+# Flamenco Manager Configuration
+# Pre-configured for Windows 11 Pro with Blender 5.1
+# Copy to: C:\BlenderFarm\flamenco-3.9-windows-amd64\flamenco-manager.yaml
+#
+# IMPORTANT: Edit the paths below to match your setup before running.
+# IMPORTANT: Always run flamenco-manager.exe from C:\BlenderFarm\flamenco-3.9-windows-amd64\
+#
+# NOTE: this file will be overwritten by Flamenco Manager's web-based configuration system.
+# Re-apply these settings after running the setup wizard if needed.
+
+_meta:
+  version: 3
+manager_name: Flamenco
+
+database: flamenco-manager.sqlite
+database_check_period: 10m0s
+
+# Port 80 bypasses Windows 11 Pro GPO firewall restrictions
+# Do NOT change back to 8080 on Windows 11 Pro — it will be blocked
+listen: :80
+
+autodiscoverable: true
+
+# Use absolute paths — relative paths cause "file not found" errors
+local_manager_storage_path: C:\BlenderFarm\flamenco-manager-storage
+shared_storage_path: C:\BlenderFarm
+
+shaman:
+  enabled: false
+  garbageCollect:
+    period: 24h0m0s
+    maxAge: 744h0m0s
+
+# Increased timeouts — essential for complex scenes
+# Default 10m is too short for anything but simple test renders
+task_timeout: 120m0s
+worker_timeout: 10m0s
+
+blocklist_threshold: 3
+task_fail_after_softfail_count: 3
+
+mqtt:
+  client:
+    enabled: false
+    broker: ""
+    clientID: flamenco
+    topic_prefix: flamenco
+    username: ""
+    password: ""
+
+variables:
+  blender:
+    values:
+    - platform: linux
+      value: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe
+    - platform: windows
+      # Edit this path if your Blender version differs
+      value: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe
+    - platform: darwin
+      value: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe
+  blenderArgs:
+    values:
+    - platform: all
+      value: -b -y
