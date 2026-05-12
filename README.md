@@ -1,3 +1,5 @@
+!{License: GPL
+v3}(https://img.shields.io/badge/License-GPLv3-blue.svg)
 # Flamenco 3.9 + Blender 5.1 on Windows 11 Pro — Complete Setup Guide
 
 > A battle-tested guide for setting up a local Blender render farm using Flamenco 3.9 on Windows 11 Pro. Every problem documented here was hit in the real world so you don't have to.
