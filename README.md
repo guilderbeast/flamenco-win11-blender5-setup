@@ -1,4 +1,29 @@
 !{License: GPL
+⚠️ VERSION COMPATIBILITY ALERT.
+⚠️ VERSION & PROTOCOL COMPATIBILITY ALERT
+Please check your Blender MCP add-on version before setting up this pipeline. Google search results frequently point users toward older, high-traffic forks (such as the ahujasid repository) which utilize different communication logic.
+
+The Trap: Older or alternative versions (like v1.2) rely on watching local JSON folder structures or complex file exchanges. If you use those with this script, Blender will remain silent.
+
+The Reality: The current official stable fallback is Blender MCP v1.0.0, which acts as a pure network listener.
+
+Why this Pipeline Uses Sockets
+To bypass the file-locking "race conditions" common in Windows 11 and ensure instant execution, Open Conduit avoids folder-watching middle-men. Instead, our script utilizes a Socket Teleportation method to push Python scripts directly to Blender over a local network port:
+
+[ Your Prompt ] 
+       │
+       ▼
+ [ Ollama (Brain) ] ─► Generates raw bpy code
+       │
+       ▼
+ [ Wizard Script ]  ─► Cleans code & opens a network socket
+       │
+       ▼
+ [ Blender MCP 1.0.0 ] ◄─ Listens on localhost:9876
+       │
+       ▼
+( 3D Viewport Object Spawns Instantly! )
+Make sure your Blender add-on is set to version 1.0.0, hit "Start MCP Server" (Port 9876), and you are ready to drop text files into your inbox.
 v3}(https://img.shields.io/badge/License-GPLv3-blue.svg)
 # Flamenco 3.9 + Blender 5.1 on Windows 11 Pro — Complete Setup Guide
 
